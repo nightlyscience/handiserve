@@ -1,0 +1,34 @@
+
+//Paperscript
+
+-------- inits: 
+var wm = view.bounds.width/2;
+var cPoint = new Point(wm, view.bounds.height-wm-5); //center point
+var vectorLine;
+var mVector;
+
+-------- onMouseDrag:
+
+mVector = event.point - cPoint;
+drawVector(mVector);
+
+------------------
+
+
+
+         function drawVector(vector){
+          var arrowVector = vector.normalize(20); //Create single line to be used as arrow heads (length of 20)
+          var end = cPoint + vector;
+          if(vectorLine) vectorLine.remove();
+          vectorLine = new Group([
+                new Path([cPoint, end]),
+                new Path([
+                        end + arrowVector.rotate(135),
+                        end,
+                        end + arrowVector.rotate(-135)
+                ])
+          ]);
+          vectorLine.strokeWidth = 3;
+          vectorLine.strokeColor = '#FFFFFF';
+        }
+
